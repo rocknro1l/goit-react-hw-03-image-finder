@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
 import {
-  SearchBarWrapper,
-  SearchForm,
-  SearchButtonText,
+  SearchBar,
   SearchButton,
+  SearchButtonText,
+  SearchForm,
   SearchInput,
 } from './Search.styled';
 
-export default class SearchBar extends Component {
+export default class Search extends Component {
   state = {
-    search: '',
+    picName: '',
   };
 
-  handleSearch = e => {
-    this.setState({ search: e.target.value });
+  handleQuery = e => {
+    this.setState({ picName: e.currentTarget.value.toLowerCase() });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.getSearch(this.state.search);
+  handleQuerySubmit = event => {
+    event.preventDefault();
+    if (this.state.picName.trim() === '') {
+      alert('Enter the query');
+      return;
+    }
+    this.props.onSubmit(this.state.picName);
+    this.setState({ picName: '' });
   };
+
   render() {
     return (
-      <SearchBarWrapper>
-        <SearchForm onSubmit={this.handleSubmit}>
+      <SearchBar>
+        <SearchForm onSubmit={this.handleQuerySubmit}>
           <SearchButton type="submit">
             <SearchButtonText>Search</SearchButtonText>
           </SearchButton>
@@ -33,11 +39,11 @@ export default class SearchBar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            onChange={this.handleSearch}
-            value={this.state.search}
+            onChange={this.handleQuery}
+            value={this.state.picName}
           />
         </SearchForm>
-      </SearchBarWrapper>
+      </SearchBar>
     );
   }
 }
