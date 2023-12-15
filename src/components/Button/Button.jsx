@@ -1,11 +1,6 @@
 import React from 'react';
-
 import { ButtonStyled } from './Button.styled';
 
-export const Button = ({ getPage }) => {
-  const incrementPage = () => {
-    getPage();
-  };
-
-  return <ButtonStyled onClick={incrementPage}>Load more</ButtonStyled>;
+export const Button = ({ onClick }) => {
+  return <ButtonStyled onClick={onClick}>Load More</ButtonStyled>;
 };
