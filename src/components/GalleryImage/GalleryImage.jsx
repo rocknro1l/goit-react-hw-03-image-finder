@@ -35,9 +35,9 @@ export default class GalleryImage extends Component {
 
     try {
       const { hits } = await getImages(picName, currentPage);
-      this.setState({
-        pictures: [...this.state.pictures, ...hits],
-      });
+      this.setState(prev => ({
+        pictures: [...prev.pictures, ...hits],
+      }));
     } catch (error) {
       this.setState({ error });
     } finally {
